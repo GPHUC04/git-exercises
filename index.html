@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thế Giới Sinh Học - Khám Phá Sự Sống</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 25%, #a8edea 50%, #fed6e3 75%, #d299c2 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .leaf-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(74, 222, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-weight: 300;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .bio-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.95) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.15);
+            border: 2px solid rgba(34, 197, 94, 0.1);
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #22c55e, #10b981, #059669);
+        }
+
+        .bio-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(34, 197, 94, 0.25);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .bio-card h2 {
+            color: #059669;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bio-card p {
+            color: #374151;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .bio-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #22c55e, #10b981);
+            color: white;
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .bio-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+            background: linear-gradient(45deg, #16a34a, #059669);
+        }
+
+        .biology-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .topic {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
+            border-radius: 20px;
+            margin: 10px;
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .topic:hover {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(16, 185, 129, 0.25) 100%);
+            transform: translateY(-8px);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .topic-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .topic h3 {
+            color: #059669;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .topic p {
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .dna-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(34, 197, 94, 0.1) 100%);
+            padding: 50px;
+            border-radius: 25px;
+            margin: 50px 0;
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            text-align: center;
+            animation: fadeInUp 1s ease-out 1.1s both;
+        }
+
+        .dna-helix {
+            display: inline-block;
+            font-size: 6rem;
+            color: #22c55e;
+            animation: rotate 4s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .dna-section h2 {
+            color: #059669;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .dna-section p {
+            color: #374151;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%);
+            border-radius: 25px;
+            color: white;
+            animation: fadeInUp 1s ease-out 1.3s both;
+            margin-top: 50px;
+        }
+
+        /* Floating leaves animation */
+        .leaf {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(34, 197, 94, 0.6);
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.6; 
+            }
+            25% { 
+                transform: translateY(-20px) rotate(90deg); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translateY(-40px) rotate(180deg); 
+                opacity: 1; 
+            }
+            75% { 
+                transform: translateY(-20px) rotate(270deg); 
+                opacity: 0.8; 
+            }
+        }
+
+        /* Fade in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .biology-topics {
+                grid-template-columns: 1fr;
+            }
+
+            .bio-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="leaf-bg"></div>
+    
+    <!-- Floating leaves -->
+    <div class="leaf" style="top: 10%; left: 5%; animation-delay: 0s;">🌿</div>
+    <div class="leaf" style="top: 20%; right: 10%; animation-delay: 2s;">🍃</div>
+    <div class="leaf" style="bottom: 30%; left: 15%; animation-delay: 4s;">🌱</div>
+    <div class="leaf" style="bottom: 15%; right: 20%; animation-delay: 6s;">🌿</div>
+    <div class="leaf" style="top: 60%; left: 80%; animation-delay: 1s;">🍃</div>
+
+    <div class="container">
+        <header>
+            <h1>🧬 Thế Giới Sinh Học</h1>
+            <p class="subtitle">Khám phá những bí ẩn kỳ diệu của sự sống trên Trái Đất</p>
+        </header>
+
+        <div class="content">
+            <div class="bio-card">
+                <h2>🌱 Sinh Học Tế Bào</h2>
+                <p>Tế bào là đơn vị cơ bản của sự sống. Từ vi khuẩn đơn giản đến các tế bào phức tạp của con người, mỗi tế bào đều chứa đựng những cơ chế sinh học tuyệt vời. Khám phá cấu trúc tế bào, quá trình phân chia tế bào và vai trò của các bào quan.</p>
+                <button class="bio-button">Khám Phá Tế Bào</button>
+            </div>
+
+            <div class="bio-card">
+                <h2>🧬 Di Truyền Học</h2>
+                <p>DNA và RNA là những phân tử mang thông tin di truyền quyết định đặc điểm của mọi sinh vật. Tìm hiểu về cấu trúc xoắn kép của DNA, quá trình sao chép gen và những đột phá trong công nghệ gene.</p>
+                <button class="bio-button">Tìm Hiểu Di Truyền</button>
+            </div>
+
+            <div class="bio-card">
+                <h2>🌿 Sinh Thái Học</h2>
+                <p>Nghiên cứu mối quan hệ giữa các sinh vật với nhau và với môi trường sống. Từ hệ sinh thái rừng nhiệt đới đến đại dương sâu, mỗi môi trường đều có những cân bằng sinh thái độc đáo cần được bảo vệ.</p>
+                <button class="bio-button">Khám Phá Sinh Thái</button>
+            </div>
+        </div>
+
+        <div class="dna-section">
+            <div class="dna-helix">🧬</div>
+            <h2>Cấu Trúc DNA</h2>
+            <p>DNA (Deoxyribonucleic Acid) là phân tử mang thông tin di truyền của tất cả sinh vật. Với cấu trúc xoắn kép đặc trưng được Watson và Crick khám phá, DNA chứa đựng bí mật của sự sống và di truyền qua các thế hệ.</p>
+        </div>
+
+        <div class="biology-topics">
+            <div class="topic">
+                <span class="topic-icon">🦠</span>
+                <h3>Vi Sinh Vật</h3>
+                <p>Thế giới vi sinh vật đa dạng với vi khuẩn, virus, nấm và tảo đơn bào, đóng vai trò quan trọng trong hệ sinh thái</p>
+            </div>
+            
+            <div class="topic">
+                <span class="topic-icon">🌸</span>
+                <h3>Thực Vật Học</h3>
+                <p>Nghiên cứu về cây cối, từ quá trình quang hợp, sinh sản đến vai trò của thực vật trong môi trường</p>
+            </div>
+            
+            <div class="topic">
+                <span class="topic-icon">🦋</span>
+                <h3>Động Vật Học</h3>
+                <p>Khám phá đa dạng sinh học động vật, từ côn trùng nhỏ bé đến các loài thú lớn và hành vi của chúng</p>
+            </div>
+            
+            <div class="topic">
+                <span class="topic-icon">🧪</span>
+                <h3>Sinh Hóa</h3>
+                <p>Nghiên cứu các phản ứng hóa học xảy ra trong cơ thể sinh vật và vai trò của enzyme</p>
+            </div>
+            
+            <div class="topic">
+                <span class="topic-icon">🔬</span>
+                <h3>Sinh Học Phân Tử</h3>
+                <p>Tìm hiểu cấu trúc và chức năng của các phân tử sinh học như protein, DNA, RNA</p>
+            </div>
+            
+            <div class="topic">
+                <span class="topic-icon">🌍</span>
+                <h3>Tiến Hóa</h3>
+                <p>Nghiên cứu quá trình tiến hóa của các loài qua hàng triệu năm và cơ chế chọn lọc tự nhiên</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌿 © 2025 Thế Giới Sinh Học - Nơi khám phá những kỳ diệu của sự sống 🌿</p>
+            <p style="margin-top: 10px; opacity: 0.9;">Cùng nhau bảo vệ và tìm hiểu về thiên nhiên tuyệt vời</p>
+        </footer>
+    </div>
+
+    <script>
+        // Thêm hiệu ứng tương tác cho cards
+        document.querySelectorAll('.bio-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02) rotateX(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateX(0)';
+            });
+        });
+
+        // Hiệu ứng click cho buttons
+        document.querySelectorAll('.bio-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Tạo hiệu ứng ripple
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'rippleEffect 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // CSS cho animation ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Thêm leaves ngẫu nhiên
+        function createRandomLeaf() {
+            const leaves = ['🌿', '🍃', '🌱', '🌾'];
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+            leaf.style.left = Math.random() * 100 + '%';
+            leaf.style.top = Math.random() * 100 + '%';
+            leaf.style.animationDelay = Math.random() * 8 + 's';
+            document.body.appendChild(leaf);
+            
+            setTimeout(() => {
+                leaf.remove();
+            }, 8000);
+        }
+
+        // Tạo leaf mới mỗi 3 giây
+        setInterval(createRandomLeaf, 3000);
+    </script>
+</body>
+</html>
